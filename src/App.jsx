@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [display, setDisplay] = useState(false);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const handleFirstNameChange = (e) => {
+		// hide the display on input change
+		setDisplay(false);
+		setFirstName(e.target.value);
+	};
+
+	const handleLastNameChange = (e) => {
+		// hide the display on input change
+		setDisplay(false);
+		setLastName(e.target.value);
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setDisplay(true);
+	};
+
+	return (
+		<div>
+			<form onSubmit={handleSubmit}>
+				<>
+					<label htmlFor="firstName">
+						{" "}
+						First Name:
+						<input
+							type="text"
+							name="firstName"
+							id="firstName"
+							required
+							value={firstName}
+							onChange={handleFirstNameChange}
+						/>
+					</label>
+					<label htmlFor="lastName">
+						Last Name:
+						<input
+							type="text"
+							name="lastName"
+							id="lastName"
+							required
+							value={lastName}
+							onChange={handleLastNameChange}
+						/>
+					</label>
+				</>
+				<button type="submit">Submit</button>
+			</form>
+			{display && (
+				<div>
+					Full Name: {firstName} {lastName}
+				</div>
+			)}
+		</div>
+	);
 }
 
-export default App
+export default App;
